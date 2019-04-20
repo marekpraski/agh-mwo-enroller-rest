@@ -7,10 +7,10 @@ import org.hibernate.cfg.AnnotationConfiguration;
 public class HibernateUtil {
 
 	private static SessionFactory sessionFactory;
-	
+
 	static{
 		try {
-			sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+		sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

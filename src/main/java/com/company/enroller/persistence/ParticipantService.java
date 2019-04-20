@@ -2,6 +2,9 @@ package com.company.enroller.persistence;
 
 import java.util.Collection;
 
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
@@ -16,12 +19,21 @@ public class ParticipantService {
 		connector = DatabaseConnector.getInstance();
 	}
 
-	public Collection<Participant> getAll() {
-		return connector.getSession().createCriteria(Participant.class).list();
-	}
+//	public Collection<Participant> getAll() {
+//	    Session session = connector.getSession();
+//	    Criteria criteria = session.createCriteria(Participant.class);
+//
+//		return criteria.list();
+//	}
+    public Collection<Participant> getAll() {
+        String hql = "FROM Participant";
+        Query query = connector.getSession().createQuery(hql);
+        return query.list();
+    }
 
 	public Participant findByLogin(String login) {
-		return (Participant) connector.getSession().get(Participant.class, login);
+        Session session = connector.getSession();
+		return (Participant) session.get(Participant.class, login);
 	}
 
 	public Participant add(Participant participant) {
